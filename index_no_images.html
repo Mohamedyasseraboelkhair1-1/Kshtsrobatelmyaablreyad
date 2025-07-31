@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ar">
 <head>
@@ -99,6 +98,64 @@
       box-shadow: 0 2px 5px rgba(0,0,0,0.2);
       z-index: 1000;
     }
+
+    /* Chatbot styles */
+    .chatbot-container {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 320px;
+      max-height: 500px;
+      background: white;
+      border: 1px solid #ccc;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+      z-index: 1001;
+    }
+    .chatbot-header {
+      background-color: #007bff;
+      color: white;
+      padding: 10px;
+      font-weight: bold;
+    }
+    .chatbot-messages {
+      flex: 1;
+      padding: 10px;
+      overflow-y: auto;
+      font-size: 14px;
+    }
+    .chatbot-input {
+      display: flex;
+      border-top: 1px solid #ccc;
+    }
+    .chatbot-input input {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      border-radius: 0;
+    }
+    .chatbot-input button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      cursor: pointer;
+    }
+    .chatbot-toggle {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 12px 16px;
+      border-radius: 50px;
+      cursor: pointer;
+      z-index: 1002;
+    }
   </style>
 </head>
 <body>
@@ -106,6 +163,7 @@
   <h1>شركة كشف تسربات المياه بالرياض</h1>
   <p>حلول متكاملة وفورية بدون تكسير – اتصل الآن واحصل على أفضل خدمة</p>
 </header>
+
 <section>
   <h2>💧 خدماتنا</h2>
   <ul>
@@ -118,16 +176,19 @@
     <li>تقارير كشف معتمدة من المياه الوطنية والكهرباء.</li>
   </ul>
 </section>
+
 <section>
   <h2>🚨 لماذا الكشف المبكر مهم؟</h2>
   <div class="highlight">
     <p>الكشف المبكر يمنع تلف الجدران والأسقف ويقلل من فواتير المياه. أجهزتنا الدقيقة تكشف التسرب بدون تخريب، مما يوفر الوقت والمال ويمنع مشاكل العفن والرطوبة.</p>
   </div>
 </section>
+
 <section>
   <h2>🛠️ أجهزة ألمانية دقيقة</h2>
   <p>نستخدم أحدث تقنيات الصوت والرصد الحراري لتحديد التسرب بدقة عالية دون الحاجة إلى كسر أي جزء من الجدران أو الأرضيات.</p>
 </section>
+
 <section>
   <h2>✅ لماذا نحن الأفضل؟</h2>
   <ul>
@@ -138,12 +199,14 @@
     <li>أسعار مناسبة وعروض خاصة للعملاء الجدد.</li>
   </ul>
 </section>
+
 <section>
   <h2>⭐ آراء عملائنا</h2>
   <p>⭐⭐⭐⭐⭐ "خدمة ممتازة واكتشفوا التسرب خلال دقائق!"</p>
   <p>⭐⭐⭐⭐⭐ "شركة منظمة وتعامل راقٍ. أنصح بها."</p>
   <p>⭐⭐⭐⭐⭐ "بدون أي تكسير تم كشف التسرب وحله فوراً."</p>
 </section>
+
 <section class="faq">
   <h2>❓ الأسئلة الشائعة</h2>
   <p><strong>هل يمكن كشف التسرب بدون تكسير؟</strong><br>نعم، نستخدم أجهزة متقدمة لا تحتاج لتكسير الجدران أو الأرضيات.</p>
@@ -151,6 +214,7 @@
   <p><strong>كم يستغرق الكشف؟</strong><br>يتم الكشف غالبًا خلال ساعة من طلب الخدمة.</p>
   <p><strong>هل تقدمون تقارير معتمدة؟</strong><br>نعم، نحن معتمدون لدى شركة المياه والكهرباء.</p>
 </section>
+
 <section>
   <h2>📞 تواصل معنا الآن</h2>
   <div class="call-now">
@@ -159,9 +223,55 @@
   <p>العنوان: الرياض، المملكة العربية السعودية</p>
   <p><a href="https://azlfoomblryad.blogspot.com" target="_blank">زيارة المدونة</a></p>
 </section>
+
 <footer>
   <p>©️ 2025 جميع الحقوق محفوظة لشركة كشف تسربات المياه بالرياض</p>
 </footer>
+
 <a class="whatsapp" href="https://wa.me/966561512622" target="_blank">💬 تواصل واتساب</a>
+
+<!-- Chatbot toggle button -->
+<button class="chatbot-toggle" onclick="document.querySelector('.chatbot-container').style.display='flex'">🤖 محادثة</button>
+
+<!-- Chatbot UI -->
+<div class="chatbot-container">
+  <div class="chatbot-header">مساعد الخدمة</div>
+  <div class="chatbot-messages" id="chatMessages"></div>
+  <div class="chatbot-input">
+    <input type="text" id="chatInput" placeholder="اكتب سؤالك..." onkeydown="if(event.key === 'Enter') sendMessage()">
+    <button onclick="sendMessage()">إرسال</button>
+  </div>
+</div>
+
+<script>
+  const responses = {
+    "هل تعزلون الصفايات": "نعم، نحن متخصصون في عزل الصفايات والبيارات بأجود مواد العزل لمنع الرطوبة والتسربات.",
+    "هل تقدمون ضمان": "نعم، جميع خدماتنا تشمل ضمانات مكتوبة لضمان جودة العمل.",
+    "هل تقدمون تقارير معتمدة": "بكل تأكيد، نقدم تقارير معتمدة من شركة المياه الوطنية والكهرباء.",
+    "كم يستغرق الكشف": "عادةً لا يستغرق الكشف أكثر من ساعة داخل الرياض.",
+    "هل يمكن كشف التسرب بدون تكسير": "نعم، نستخدم أجهزة ألمانية حديثة تكشف التسربات بدون أي تكسير.",
+    "ما هي خدماتكم": "نحن نقدم: كشف تسربات، عزل فوم، تسليك مجاري، لحام مواسير، تقارير معتمدة والمزيد.",
+  };
+
+  function sendMessage() {
+    const input = document.getElementById("chatInput");
+    const message = input.value.trim();
+    if (message === "") return;
+
+    const chatBox = document.getElementById("chatMessages");
+    const userMsg = document.createElement("div");
+    userMsg.textContent = "👤 " + message;
+    chatBox.appendChild(userMsg);
+
+    const reply = Object.keys(responses).find(q => message.includes(q));
+    const botMsg = document.createElement("div");
+    botMsg.textContent = "🤖 " + (reply ? responses[reply] : "عذرًا، لم أفهم سؤالك. يرجى المحاولة بصيغة مختلفة.");
+    chatBox.appendChild(botMsg);
+
+    input.value = "";
+    chatBox.scrollTop = chatBox.scrollHeight;
+  }
+</script>
+
 </body>
 </html>
