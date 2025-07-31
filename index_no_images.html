@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ar">
 <head>
@@ -163,5 +162,105 @@
   <p>©️ 2025 جميع الحقوق محفوظة لشركة كشف تسربات المياه بالرياض</p>
 </footer>
 <a class="whatsapp" href="https://wa.me/966561512622" target="_blank">💬 تواصل واتساب</a>
+
+<!-- شات بوت بسيط -->
+<script>
+  const botResponses = {
+    "هل تعزلون الصفايات": "نعم، نقوم بعزل الصفايات والبيارات لمنع التسربات والرطوبة.",
+    "هل تقدمون تقارير معتمدة": "نعم، نحن معتمدون لدى شركة المياه الوطنية والكهرباء.",
+    "هل الكشف بدون تكسير": "نعم، نستخدم أجهزة متطورة للكشف بدون تكسير.",
+    "هل يوجد ضمان": "نعم، نوفر ضمان مكتوب على جميع الخدمات.",
+    "كم سعر الخدمة": "السعر حسب نوع الخدمة، اتصل بنا الآن على 0561512622 لمعرفة التفاصيل.",
+    "كم يستغرق الكشف": "عادةً ما يتم الكشف خلال ساعة من طلب الخدمة داخل الرياض.",
+  };
+
+  const chatStyle = `
+    #chatbot-container {
+      position: fixed;
+      bottom: 90px;
+      right: 20px;
+      width: 300px;
+      max-height: 400px;
+      background: white;
+      border: 1px solid #ccc;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      font-family: Arial, sans-serif;
+      z-index: 1001;
+    }
+    #chatbot-messages {
+      flex: 1;
+      padding: 10px;
+      overflow-y: auto;
+    }
+    #chatbot-input {
+      border-top: 1px solid #ccc;
+      display: flex;
+    }
+    #chatbot-input input {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      outline: none;
+    }
+    #chatbot-input button {
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      cursor: pointer;
+    }
+  `;
+
+  const style = document.createElement("style");
+  style.textContent = chatStyle;
+  document.head.appendChild(style);
+
+  const container = document.createElement("div");
+  container.id = "chatbot-container";
+  container.innerHTML = `
+    <div id="chatbot-messages"></div>
+    <div id="chatbot-input">
+      <input type="text" placeholder="اسألنا عن خدماتنا..." />
+      <button>إرسال</button>
+    </div>
+  `;
+  document.body.appendChild(container);
+
+  const messages = document.getElementById("chatbot-messages");
+  const input = container.querySelector("input");
+  const button = container.querySelector("button");
+
+  function addMessage(text, sender = "user") {
+    const msg = document.createElement("div");
+    msg.textContent = text;
+    msg.style.margin = "5px 0";
+    msg.style.textAlign = sender === "user" ? "right" : "left";
+    msg.style.background = sender === "user" ? "#e9f5ff" : "#d1ffd6";
+    msg.style.padding = "8px";
+    msg.style.borderRadius = "8px";
+    messages.appendChild(msg);
+    messages.scrollTop = messages.scrollHeight;
+  }
+
+  button.onclick = () => {
+    const question = input.value.trim();
+    if (!question) return;
+    addMessage(question, "user");
+
+    const found = Object.entries(botResponses).find(([key]) =>
+      question.includes(key)
+    );
+
+    const response = found ? found[1] : "يرجى الاتصال بنا لمزيد من التفاصيل على 0561512622.";
+    setTimeout(() => addMessage(response, "bot"), 500);
+    input.value = "";
+  };
+</script>
+<!-- نهاية الشات بوت -->
+
 </body>
 </html>
